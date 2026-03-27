@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  body {
+    @apply bg-navy-900 text-slate-100 font-sans antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-navy-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-navy-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-navy-700 border border-navy-600 rounded-xl p-5;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-200 hover:border-navy-600/80 hover:shadow-lg hover:shadow-navy-900/50;
+  }
+
+  .stat-number {
+    @apply text-5xl font-bold tracking-tight;
+  }
+
+  .section-header {
+    @apply text-xl font-semibold text-slate-100;
+  }
+
+  .label {
+    @apply text-[11px] font-medium uppercase tracking-wider text-slate-500;
+  }
+
+  .badge-approved {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald/10 text-emerald border border-emerald/20;
+  }
+
+  .badge-review {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber/10 text-amber border border-amber/20;
+  }
+
+  .badge-blocked {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-coral/10 text-coral border border-coral/20;
+  }
+}
+
+/* Custom animations */
+@keyframes fraud-flash {
+  0% { background-color: rgba(239, 68, 68, 0.3); }
+  50% { background-color: rgba(239, 68, 68, 0.1); }
+  100% { background-color: transparent; }
+}
+
+.fraud-flash {
+  animation: fraud-flash 1.5s ease-out;
+}
+
+/* Scan-line overlay for monitoring station effect */
+.scan-lines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.scan-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(14, 165, 160, 0.015) 2px,
+    rgba(14, 165, 160, 0.015) 4px
+  );
+}
+
+.scan-lines::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 165, 160, 0.04) 0%,
+    transparent 100%
+  );
+  animation: scan-sweep 4s linear infinite;
+}
+
+@keyframes scan-sweep {
+  0%   { top: -60px; }
+  100% { top: 100%; }
+}
